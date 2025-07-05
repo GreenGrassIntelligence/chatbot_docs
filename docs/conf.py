@@ -35,6 +35,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
     # 'sphinx_rtd_theme',  # Commented out - using karma_sphinx_theme instead
+    'karma_sphinx_theme',  # Added karma theme extension
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.ifconfig',
@@ -71,6 +72,7 @@ html_theme = "karma_sphinx_theme"  # Currently using karma_sphinx_theme
 
 # Karma Sphinx Theme options
 html_theme_options = {
+    'style': 'default',  # Required by karma theme
     'navigation_depth': 4,
     'collapse_navigation': False,
     'sticky_navigation': True,
