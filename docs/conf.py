@@ -72,17 +72,10 @@ html_theme = "karma_sphinx_theme"  # Currently using karma_sphinx_theme
 
 # Karma Sphinx Theme options
 html_theme_options = {
-    'style': 'default',  # Required by karma theme
+    # Karma theme uses minimal options
     'navigation_depth': 4,
-    'collapse_navigation': False,
-    'sticky_navigation': True,
     'includehidden': True,
     'titles_only': False,
-    'logo_only': False,
-    'display_version': True,
-    'prev_next_buttons_location': 'bottom',
-    'style_external_links': True,
-    'style_nav_header_background': '#2980B9',
 }
 
 # Read the Docs Theme options (commented out - for reference)
