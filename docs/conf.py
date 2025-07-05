@@ -17,8 +17,8 @@ sys.path.insert(0, os.path.abspath('..'))
 # -- Project information -----------------------------------------------------
 
 project = 'E-commerce Chatbot'
-copyright = '2024, E-commerce Chatbot Team'
-author = 'E-commerce Chatbot Team'
+copyright = '2024, GreenGrass Team'
+author = 'GreenGrass Team'
 
 # The full version, including alpha/beta/rc tags
 release = '0.1.0'
@@ -34,7 +34,7 @@ extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages',
-    'sphinx_rtd_theme',
+    # 'sphinx_rtd_theme',  # Commented out - using karma_sphinx_theme instead
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.ifconfig',
@@ -62,11 +62,14 @@ master_doc = 'index'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = "karma_sphinx_theme"  # 'sphinx_rtd_theme'
+html_theme = "karma_sphinx_theme"  # Currently using karma_sphinx_theme
+# html_theme = "sphinx_rtd_theme"  # Alternative: Read the Docs theme
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
+
+# Karma Sphinx Theme options
 html_theme_options = {
     'navigation_depth': 4,
     'collapse_navigation': False,
@@ -79,6 +82,20 @@ html_theme_options = {
     'style_external_links': True,
     'style_nav_header_background': '#2980B9',
 }
+
+# Read the Docs Theme options (commented out - for reference)
+# html_theme_options = {
+#     'navigation_depth': 4,
+#     'collapse_navigation': False,
+#     'sticky_navigation': True,
+#     'includehidden': True,
+#     'titles_only': False,
+#     'logo_only': False,
+#     'display_version': True,
+#     'prev_next_buttons_location': 'bottom',
+#     'style_external_links': True,
+#     'style_nav_header_background': '#2980B9',
+# }
 
 # GitHub Pages configuration
 # Update this URL to match your new documentation repository
