@@ -6,6 +6,7 @@ This repository contains the complete documentation for the E-commerce Chatbot p
 
 Visit the live documentation at: [https://greengrassintelligence.github.io/chatbot_docs/](https://greengrassintelligence.github.io/chatbot_docs/)
 
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -20,6 +21,7 @@ Visit the live documentation at: [https://greengrassintelligence.github.io/chatb
 # Clone this repository
 git clone https://github.com/GreenGrassIntelligence/chatbot_docs.git
 cd chatbot_docs
+
 
 # Install dependencies
 pip install -r requirements.txt

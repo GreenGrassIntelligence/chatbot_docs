@@ -84,6 +84,7 @@ html_theme_options = {
 # Update this URL to match your new documentation repository
 html_baseurl = 'https://greengrassintelligence.github.io/chatbot_docs/'
 
+
 # GitHub Pages specific settings
 html_use_index = True
 html_add_permalinks = True

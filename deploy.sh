@@ -74,6 +74,7 @@ echo "🎉 Deployment completed successfully!"
 echo ""
 echo "📖 Your documentation should be available at:"
 echo "   https://greengrassintelligence.github.io/chatbot_docs/"
+
 echo ""
 echo "⏱️  It may take a few minutes for changes to appear."
 echo ""
