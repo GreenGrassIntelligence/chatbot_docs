@@ -1,17 +1,17 @@
-name: Build and Deploy Documentation
+name: Deploy Documentation to GitHub Pages
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 
 jobs:
-  build-docs:
+  build-and-deploy:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout repository
+    - name: Checkout
       uses: actions/checkout@v4
       
     - name: Set up Python
@@ -21,25 +21,17 @@ jobs:
         
     - name: Install dependencies
       run: |
-        cd docs
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
     - name: Build documentation
       run: |
-        cd docs
         make html
         
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: documentation
-        path: docs/_build/html/
-        
     - name: Deploy to GitHub Pages
-      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs/_build/html
+        publish_dir: ./_build/html
         force_orphan: true 

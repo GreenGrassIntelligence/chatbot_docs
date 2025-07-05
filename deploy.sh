@@ -2,11 +2,14 @@
 
 # Manual deployment script for GitHub Pages
 # This script builds the documentation and deploys it to the gh-pages branch
+# For use with a dedicated documentation repository
 
 set -e  # Exit on any error
 
 echo "🚀 Deploying Documentation to GitHub Pages"
 echo "=========================================="
+echo "📚 Repository: Dedicated Documentation Repository"
+echo ""
 
 # Check if we're in the docs directory
 if [ ! -f "conf.py" ]; then
@@ -70,13 +73,15 @@ echo ""
 echo "🎉 Deployment completed successfully!"
 echo ""
 echo "📖 Your documentation should be available at:"
-echo "   https://yourusername.github.io/your-repo-name/"
+echo "   https://yourusername.github.io/your-docs-repo-name/"
 echo ""
 echo "⏱️  It may take a few minutes for changes to appear."
 echo ""
 echo "🔧 To configure GitHub Pages:"
-echo "   1. Go to your repository on GitHub"
+echo "   1. Go to your documentation repository on GitHub"
 echo "   2. Navigate to Settings → Pages"
 echo "   3. Select 'Deploy from a branch'"
 echo "   4. Choose 'gh-pages' branch and '/(root)' folder"
-echo "   5. Click Save" 
+echo "   5. Click Save"
+echo ""
+echo "📝 Remember to update conf.py with your actual repository name!" 
