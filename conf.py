@@ -82,7 +82,8 @@ html_theme_options = {
 
 # GitHub Pages configuration
 # Update this URL to match your new documentation repository
-html_baseurl = 'https://yourusername.github.io/your-docs-repo-name/'
+html_baseurl = 'https://greengrassintelligence.github.io/chatbot_docs/'
+
 
 # GitHub Pages specific settings
 html_use_index = True
@@ -90,7 +91,7 @@ html_add_permalinks = True
 html_permalinks_icon = "¶"
 
 # SEO settings
-html_use_opensearch = 'https://yourusername.github.io/your-docs-repo-name'
+html_use_opensearch = 'https://greengrassintelligence.github.io/chatbot_docs'
 html_short_title = 'E-commerce Chatbot Docs'
 
 # Add any paths that contain custom static files (such as style sheets) here,
