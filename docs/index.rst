@@ -68,6 +68,7 @@ Documentation Structure
    :maxdepth: 2
    :caption: Getting Started:
 
+   README
    quick_reference
    implementation_status
    setup_docs_repo
