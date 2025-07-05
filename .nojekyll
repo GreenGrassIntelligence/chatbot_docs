@@ -1,2 +1,2 @@
-# This file tells GitHub Pages not to process the site with Jekyll
-# It's required for Sphinx-generated sites 
+# This file tells GitHub Pages not to use Jekyll processing
+# Sphinx generates static HTML that doesn't need Jekyll 

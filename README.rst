@@ -1,7 +1,7 @@
-E-commerce Chatbot Documentation
-===============================
+E-commerce Chatbot - Production Grade Solution
+=============================================
 
-Welcome to the documentation for the **E-commerce Chatbot** - an intelligent conversational AI system designed for e-commerce platforms. This chatbot handles product inquiries, cart operations, and provides shopping assistance through natural language conversations.
+A comprehensive, production-grade e-commerce chatbot built with LLM, RAG, and PostgreSQL. Features advanced intent detection, entity extraction, analytics tracking, cost monitoring, and feature toggles.
 
 .. image:: https://img.shields.io/badge/Python-3.8+-blue.svg
    :target: https://python.org
@@ -11,254 +11,601 @@ Welcome to the documentation for the **E-commerce Chatbot** - an intelligent con
    :target: LICENSE
    :alt: MIT License
 
-.. image:: https://img.shields.io/badge/Status-Development-orange.svg
-   :alt: Development
+.. image:: https://img.shields.io/badge/Version-0.1.0-blue.svg
+   :alt: Version 0.1.0
 
-Quick Start
+🚀 Features
 -----------
+
+Core Features
+~~~~~~~~~~~~
+
+- **Advanced LLM Integration**: Support for Groq, OpenAI, Anthropic, and Ollama
+- **Intent & Entity Extraction**: Robust detection with confidence scoring
+- **RAG (Retrieval Augmented Generation)**: For product descriptions and FAQs
+- **PostgreSQL Database**: Structured data for products, orders, users, analytics
+- **Redis Caching**: Fast session management and response caching
+- **Analytics Engine**: Comprehensive tracking of interactions, costs, and performance
+- **Cost Monitoring**: Real-time tracking of LLM API costs
+- **Session Management**: Multi-turn conversation support
+- **Modular Architecture**: Clean, maintainable, and extensible codebase
+
+Enhanced Features
+~~~~~~~~~~~~~~~~
+
+- **Database Integration**: Real-time data persistence with PostgreSQL
+- **Cart Management**: Persistent shopping cart with database storage
+- **Order Processing**: Complete order lifecycle management with PDF invoices
+- **Stock Management**: Live stock tracking with automatic updates
+- **Input Validation**: SQL injection protection and XSS prevention
+- **Configuration Management**: YAML-based with environment variable support
+- **Currency Support**: Indian Rupee (₹) with tax calculations (10% GST)
+
+Feature Toggles
+~~~~~~~~~~~~~~
+
+- **Fuzzy Matching**: Enable/disable fuzzy search functionality
+- **Phonetic Matching**: Enable/disable phonetic search capabilities
+- **Partial Matching**: Enable/disable partial text matching
+- **Analytics**: Enable/disable user interaction tracking
+- **Commands**: Enable/disable command system
+- **Search**: Enable/disable search functionality
+- **Session Management**: Enable/disable session handling
+- **Caching**: Enable/disable caching features
+
+📋 Prerequisites
+---------------
+
+System Requirements
+~~~~~~~~~~~~~~~~~~
+
+- Python 3.8+
+- PostgreSQL 12+
+- Redis 6+ (optional, for caching)
+- 2GB RAM minimum
+- 1GB disk space
+
+🛠️ Installation
+---------------
+
+1. **Clone the Repository**
+
+   .. code-block:: bash
+
+      git clone <repository-url>
+      cd chatbot-core
+
+2. **Create Virtual Environment**
+
+   .. code-block:: bash
+
+      python -m venv venv
+      source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+3. **Install Dependencies**
+
+   .. code-block:: bash
+
+      pip install -r requirements.txt
+
+4. **Environment Configuration**
+
+   Create a `.env` file in the root directory:
+
+   .. code-block:: bash
+
+      # Environment
+      ENV=development
+
+      # Database Configuration
+      DATABASE_HOST=localhost
+      DATABASE_PORT=5432
+      DATABASE_USER=postgres
+      DATABASE_PASSWORD=your_password
+      DATABASE_NAME=ecommerce_dev
+
+      # Redis Configuration
+      REDIS_HOST=localhost
+      REDIS_PORT=6379
+      REDIS_PASSWORD=
+
+      # LLM Configuration
+      GROQ_API_KEY=gsk_your_groq_api_key_here
+      OPENAI_API_KEY=sk-your_openai_api_key_here
+      ANTHROPIC_API_KEY=sk-ant-your_anthropic_api_key_here
+
+      # Feature Toggles
+      ENABLE_FUZZY_MATCHING=true
+      ENABLE_PHONETIC_MATCHING=true
+      ENABLE_ANALYTICS=true
+      ENABLE_COMMANDS=true
+
+5. **Database Setup**
+
+   .. code-block:: bash
+
+      # Create database
+      createdb ecommerce_dev
+
+      # Run database migrations
+      psql -d ecommerce_dev -f src/models/database_schema.sql
+
+6. **Redis Setup**
+
+   .. code-block:: bash
+
+      # Start Redis server
+      redis-server
+
+      # Or using Docker
+      docker run -d -p 6379:6379 redis:6-alpine
+
+7. **Initialize System**
+
+   .. code-block:: bash
+
+      # Run full setup (database + data + RAG + search)
+      python setup_data_and_rag.py --full-setup
+
+🏗️ System Architecture
+-----------------------
+
+.. code-block:: text
+
+   ┌─────────────────────────────────────────────────────────────────────────────┐
+   │                              USER INTERFACE LAYER                           │
+   └─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+   ┌─────────────────────────────────────────────────────────────────────────────┐
+   │                              INPUT PROCESSING                               │
+   │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────────┐  │
+   │  │   User Input    │─▶│ Input Validator │─▶│   Security & Sanitization   │  │
+   │  │                 │  │                 │  │  • SQL Injection Protection │  │
+   │  │                 │  │                 │  │  • XSS Prevention           │  │
+   │  │                 │  │                 │  │  • Input Sanitization       │  │
+   │  └─────────────────┘  └─────────────────┘  └─────────────────────────────┘  │
+   └─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+   ┌─────────────────────────────────────────────────────────────────────────────┐
+   │                              NATURAL LANGUAGE UNDERSTANDING (NLU)           │
+   │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────────┐  │
+   │  │ Intent Detection│  │ Entity Extraction│  │   Multi-Intent Processing   │  │
+   │  │                 │  │                 │  │  • Primary Intent           │  │
+   │  │ • Product Info  │  │ • Product Names │  │  • Secondary Intents        │  │
+   │  │ • Product Search│  │ • Quantities    │  │  • Intent Confidence        │  │
+   │  │ • Add to Cart   │  │ • Categories    │  │  • Clarification Detection  │  │
+   │  │ • View Cart     │  │ • Brands        │  │                             │  │
+   │  │ • Order History │  │ • Prices        │  │                             │  │
+   │  │ • Price Inquiry │  │ • User Context  │  │                             │  │
+   │  │ • Stock Inquiry │  │                 │  │                             │  │
+   │  └─────────────────┘  └─────────────────┘  └─────────────────────────────┘  │
+   └─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+   ┌─────────────────────────────────────────────────────────────────────────────┐
+   │                              SEARCH & MATCHING ENGINE                       │
+   │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────────┐  │
+   │  │  Fuzzy Matcher  │  │ Phonetic Matcher│  │   Partial Matcher           │  │
+   │  │                 │  │                 │  │                             │  │
+   │  │ • Levenshtein   │  │ • Sound-based   │  │ • Substring Matching       │  │
+   │  │ • Typo Tolerance│  │ • Brand Names   │  │ • Case-insensitive         │  │
+   │  │ • Configurable  │  │ • Product Names │  │ • Configurable Threshold   │  │
+   │  │   Distance      │  │ • Similar Words │  │                             │  │
+   │  └─────────────────┘  └─────────────────┘  └─────────────────────────────┘  │
+   │                                                                             │
+   │  ┌─────────────────────────────────────────────────────────────────────────┐  │
+   │  │                    RAG (Retrieval Augmented Generation)                 │  │
+   │  │  • Vector Database (ChromaDB)                                          │  │
+   │  │  • Embedding Model (text-embedding-3-small)                            │  │
+   │  │  • Semantic Search & Similarity Matching                               │  │
+   │  │  • Context-Aware Product Retrieval                                     │  │
+   │  └─────────────────────────────────────────────────────────────────────────┘  │
+   └─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+   ┌─────────────────────────────────────────────────────────────────────────────┐
+   │                              CONTEXT & SESSION MANAGEMENT                   │
+   │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────────┐  │
+   │  │ Session Manager │  │ Context Tracker │  │   Conversation Memory       │  │
+   │  │                 │  │                 │  │                             │  │
+   │  │ • Session Timeout│  │ • User History │  │ • Multi-turn Context        │  │
+   │  │ • Auto Cleanup  │  │ • Preferences   │  │ • Intent Continuity         │  │
+   │  │ • Multi-session │  │ • Cart State    │  │ • Entity Resolution         │  │
+   │  │   Support       │  │ • Order History │  │ • Clarification Context     │  │
+   │  └─────────────────┘  └─────────────────┘  └─────────────────────────────┘  │
+   └─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+   ┌─────────────────────────────────────────────────────────────────────────────┐
+   │                              ACTION EXECUTION LAYER                         │
+   │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────────┐  │
+   │  │  Cart Manager   │  │  Order Manager  │  │   Stock Manager             │  │
+   │  │                 │  │                 │  │                             │  │
+   │  │ • Add Items     │  │ • Order Creation│  │ • Stock Checking            │  │
+   │  │ • Remove Items  │  │ • Order Status  │  │ • Stock Reservation         │  │
+   │  │ • Update Qty    │  │ • Order History │  │ • Low Stock Alerts          │  │
+   │  │ • Cart Total    │  │ • Invoice Gen   │  │ • Auto Stock Updates        │  │
+   │  │ • Cart Cleanup  │  │ • Payment Track │  │                             │  │
+   │  └─────────────────┘  └─────────────────┘  └─────────────────────────────┘  │
+   │                                                                             │
+   │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────────┐  │
+   │  │ Command Handler │  │ Product Search  │  │   Price Calculator          │  │
+   │  │                 │  │                 │  │                             │  │
+   │  │ • /cart         │  │ • Field Search  │  │ • Price Calculation         │  │
+   │  │ • /verbose      │  │ • Category Filter│  │ • Tax Calculation (10% GST)│  │
+   │  │ • /help         │  │ • Price Range   │  │ • Discount Application      │  │
+   │  │ • /clear        │  │ • Brand Filter  │  │ • Currency Formatting       │  │
+   │  └─────────────────┘  └─────────────────┘  └─────────────────────────────┘  │
+   └─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+   ┌─────────────────────────────────────────────────────────────────────────────┐
+   │                              NATURAL LANGUAGE GENERATION (NLG)             │
+   │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────────┐  │
+   │  │ Response Gen    │  │ Template Engine │  │   Context-Aware NLG         │  │
+   │  │                 │  │                 │  │                             │  │
+   │  │ • Intent-based  │  │ • Prompt Templates│  │ • Personalized Responses   │  │
+   │  │ • Entity-aware  │  │ • System Prompts│  │ • Conversation Continuity   │  │
+   │  │ • Context-aware │  │ • Dynamic Prompts│  │ • Multi-language Ready      │  │
+   │  │ • Multi-format  │  │ • Response Cache│  │ • Tone Adaptation           │  │
+   │  └─────────────────┘  └─────────────────┘  └─────────────────────────────┘  │
+   └─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+   ┌─────────────────────────────────────────────────────────────────────────────┐
+   │                              ANALYTICS & MONITORING                         │
+   │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────────┐  │
+   │  │ Analytics Engine│  │ Cost Tracker    │  │   Performance Monitor       │  │
+   │  │                 │  │                 │  │                             │  │
+   │  │ • User Interactions│  │ • LLM API Costs│  │ • Response Time Tracking   │  │
+   │  │ • Intent Tracking│  │ • Token Usage  │  │ • Success Rate Monitoring   │  │
+   │  │ • Error Tracking │  │ • Cost per Call│  │ • Resource Usage Tracking   │  │
+   │  │ • Conversion Rate│  │ • Daily/Monthly│  │ • Cache Hit Rate            │  │
+   │  │ • User Journey   │  │   Cost Reports │  │ • Database Query Performance│  │
+   │  └─────────────────┘  └─────────────────┘  └─────────────────────────────┘  │
+   │                                                                             │
+   │  ┌─────────────────────────────────────────────────────────────────────────┐  │
+   │  │                    ERROR HANDLING & LOGGING                            │  │
+   │  │  • Structured Logging (JSON)                                           │  │
+   │  │  • Error Categorization & Classification                               │  │
+   │  │  • Retry Mechanisms with Exponential Backoff                           │  │
+   │  │  • User-Friendly Error Messages                                        │  │
+   │  │  • Security Event Logging                                              │  │
+   │  └─────────────────────────────────────────────────────────────────────────┘  │
+   └─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+   ┌─────────────────────────────────────────────────────────────────────────────┐
+   │                              DATA LAYER                                    │
+   │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────────┐  │
+   │  │ PostgreSQL DB   │  │   Redis Cache   │  │   Vector Database           │  │
+   │  │                 │  │                 │  │   (ChromaDB)                │  │
+   │  │ • Products      │  │ • Session Cache │  │                             │  │
+   │  │ • Categories    │  │ • Response Cache│  │ • Product Embeddings        │  │
+   │  │ • Users         │  │ • Search Cache  │  │ • Semantic Search Index     │  │
+   │  │ • Orders        │  │ • User Cache    │  │ • Similarity Matching       │  │
+   │  │ • Cart Items    │  │ • Rate Limiting │  │ • Context Vectors           │  │
+   │  │ • Sessions      │  │ • Analytics Cache│  │                             │  │
+   │  │ • Analytics     │  │                 │  │                             │  │
+   │  │ • Stock Data    │  │                 │  │                             │  │
+   │  └─────────────────┘  └─────────────────┘  └─────────────────────────────┘  │
+   └─────────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+   ┌─────────────────────────────────────────────────────────────────────────────┐
+   │                              EXTERNAL INTEGRATIONS                         │
+   │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────────────┐  │
+   │  │ LLM Providers   │  │ Payment Gateway │  │   Notification Service      │  │
+   │  │                 │  │                 │  │                             │  │
+   │  │ • Groq          │  │ • Payment Proc  │  │ • Email Notifications       │  │
+   │  │ • OpenAI        │  │ • Order Confirm │  │ • SMS Alerts                │  │
+   │  │ • Anthropic     │  │ • Refund Proc   │  │ • Push Notifications        │  │
+   │  │ • Ollama        │  │ • Tax Calc      │  │ • Stock Alerts              │  │
+   │  └─────────────────┘  └─────────────────┘  └─────────────────────────────┘  │
+   └─────────────────────────────────────────────────────────────────────────────┘
+
+📁 Project Structure
+-------------------
+
+.. code-block:: text
+
+   chatbot-core/
+   ├── config/
+   │   └── app_config.yaml          # Main configuration with feature toggles
+   ├── docs/                        # Documentation
+   │   ├── README.rst              # Main documentation
+   │   ├── deployment_guide.rst    # Deployment instructions
+   │   └── ...
+   ├── sample_data/
+   │   └── products_sample.json     # Sample product data
+   ├── setup_data_and_rag.py        # Automated setup script
+   ├── src/
+   │   ├── config/
+   │   │   ├── __init__.py         # Unified configuration interface
+   │   │   ├── unified_config.py   # Unified configuration system
+   │   │   └── config_manager.py   # Legacy config manager
+   │   ├── models/
+   │   │   ├── data_models.py      # Pydantic data models
+   │   │   ├── session_models.py   # Session management
+   │   │   └── database_schema.sql # Database schema
+   │   ├── llm/
+   │   │   ├── enhanced_llm_core.py # Advanced LLM engine
+   │   │   └── intent_extraction.py # Intent/entity extraction
+   │   ├── search/
+   │   │   └── search_engine.py    # Search with feature toggles
+   │   ├── analytics/
+   │   │   └── analytics_engine.py # Analytics tracking
+   │   └── main.py                 # Main application
+   ├── requirements.txt
+   ├── .env.example
+   └── README.rst                  # This file
+
+🔧 Configuration
+---------------
+
+Environment-Specific Configs
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The system supports three environments:
+
+1. **Development** (`ENV=development`)
+   - Local database and Redis
+   - Debug mode enabled
+   - Higher temperature for LLM responses
+
+2. **Staging** (`ENV=staging`)
+   - Staging database
+   - Moderate temperature
+   - Basic monitoring
+
+3. **Production** (`ENV=production`)
+   - Production database with connection pooling
+   - Lower temperature for consistent responses
+   - Full monitoring and cost tracking
+
+Feature Toggle Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Environment Variables
+^^^^^^^^^^^^^^^^^^^^
+
+Control features via environment variables:
 
 .. code-block:: bash
 
-    # Clone the repository
-    git clone <repository-url>
-    cd "Chatbot Core"
-    
-    # Install dependencies
-    pip install -r requirements.txt
-    
-    # Setup environment
-    cp env.example .env
-    # Edit .env with your API keys (GROQ_API_KEY required)
-    
-    # Run the chatbot
-    python src/main.py
+   # Disable specific features
+   export ENABLE_FUZZY_MATCHING=false
+   export ENABLE_PHONETIC_MATCHING=false
+   export ENABLE_ANALYTICS=false
+   export ENABLE_COMMANDS=false
+   export ENABLE_SEARCH=false
+   export ENABLE_SESSION_MANAGEMENT=false
+   export ENABLE_CACHING=false
 
-What This Chatbot Can Do
------------------------
+Configuration File
+^^^^^^^^^^^^^^^^^
 
-🎯 **Multi-Intent Processing**
-   Handle multiple requests in a single message:
-   
-   *"I want to buy ghee and check milk prices"* → Processes both purchase and price inquiry
+Update `config/app_config.yaml`:
 
-🤖 **Intelligent Clarification**
-   Automatically detect missing information and ask for clarification:
-   
-   *"I want to buy ghee"* → *"Which brand? Amul, Patanjali, or Mother Dairy?"*
+.. code-block:: yaml
 
-🛒 **E-commerce Operations**
-   * Product information and search
-   * Cart management (add, remove, update)
-   * Price and stock inquiries
-   * Product comparisons
+   features:
+     fuzzy_matching:
+       enabled: true
+       max_distance: 2
+       min_score: 0.6
+     phonetic_matching:
+       enabled: true
+       min_score: 0.7
+     partial_matching:
+       enabled: true
+       min_score: 0.5
+     analytics:
+       enabled: true
+       track_user_interactions: true
+       track_performance_metrics: true
+     commands:
+       enabled: true
+       allow_cart_commands: true
+       allow_verbose_mode: true
+     search:
+       enabled: true
+       max_results: 10
+       enable_field_specific_search: true
+     session_management:
+       enabled: true
+       auto_cleanup: true
+     caching:
+       enabled: true
+       cache_search_results: true
+       cache_user_sessions: true
 
-🧠 **Context-Aware Conversations**
-   Remember user preferences and maintain conversation context across interactions
+LLM Provider Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
-📊 **Analytics and Monitoring**
-   Track performance, costs, and user interactions
+.. code-block:: python
 
-Key Features (Implemented)
--------------------------
+   from src.config import config
 
-Multi-Intent Detection
-~~~~~~~~~~~~~~~~~~~~~
+   # Access LLM configuration
+   llm_config = config.llm
+   print(f"Provider: {llm_config.provider}")
+   print(f"Model: {llm_config.model}")
+   print(f"Temperature: {llm_config.temperature}")
 
-The chatbot can understand and process multiple intents in a single message:
+🚀 Usage Examples
+-----------------
 
-.. code-block:: text
+Basic Chatbot Usage
+~~~~~~~~~~~~~~~~~~
 
-    User: "Compare Amul and Patanjali ghee, then add the cheaper one to cart"
-    
-    Bot Response:
-    "I'll help you compare and purchase!
-    
-    Comparison:
-    • Amul Pure Ghee 1L - ₹495
-    • Patanjali Pure Ghee 1L - ₹450
-    
-    Patanjali is cheaper by ₹45. Adding 1L Patanjali Pure Ghee to your cart!"
+.. code-block:: python
 
-Missing Information Detection
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   from src.llm.enhanced_llm_core import llm_engine
+   from src.llm.intent_extraction import extract_intent_entities
+   from src.analytics import analytics_engine
 
-Automatically detects when critical information is missing:
+   # Initialize analytics
+   analytics = analytics_engine
 
-.. code-block:: text
+   # Process user message
+   user_message = "I want to buy organic milk"
+   user_id = "user123"
+   session_id = "session456"
 
-    User: "I want to buy ghee"
-    
-    Bot: "Which brand of ghee would you prefer? We have:
-    • Amul Pure Ghee
-    • Patanjali Pure Ghee  
-    • Mother Dairy Ghee
-    
-    Also, would you prefer cow ghee or buffalo ghee?"
+   # Start tracking interaction
+   interaction_id = analytics.start_interaction(user_id, session_id, user_message)
 
-Fuzzy Search and Pattern Matching
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   try:
+       # Extract intent and entities
+       intent_data, clarification = extract_intent_entities(user_message, user_id)
+       
+       if clarification:
+           response = f"I need more information: {clarification}"
+       else:
+           # Track intent detection
+           analytics.track_intent_detection(interaction_id, intent_data)
+           
+           # Generate response based on intent
+           if intent_data.intent_type.value == "product_search":
+               response = "I found several organic milk options for you..."
+           else:
+               response = "I understand you're looking for organic milk. Let me help you with that."
+       
+       # Track response
+       analytics.track_response_generated(interaction_id, response)
+       
+   except Exception as e:
+       analytics.track_error(interaction_id, str(e))
+       response = "Sorry, I encountered an error. Please try again."
 
-Supports flexible product matching with fuzzy search and wildcards:
+   # End interaction tracking
+   metrics = analytics.end_interaction(interaction_id)
+   print(f"Interaction completed in {metrics.total_processing_time_ms}ms")
 
-.. code-block:: text
+Feature Toggle Usage
+~~~~~~~~~~~~~~~~~~~
 
-    User: "Show me organic * under ₹500"
-    
-    Bot: "Here are organic products under ₹500:
-    • Organic Milk 1L - ₹299
-    • Organic Tomatoes 500g - ₹199"
+.. code-block:: python
 
-Command System
+   from src.config import config
+
+   # Check if features are enabled
+   if config.features.fuzzy_matching:
+       # Use fuzzy matching
+       pass
+
+   if config.features.analytics:
+       # Track analytics
+       pass
+
+   # Get feature configuration
+   search_config = config.search
+   max_results = search_config.max_results
+
+🔍 Search Features
+-----------------
+
+Fuzzy Matching
 ~~~~~~~~~~~~~
 
-Built-in commands for enhanced functionality:
+- Levenshtein distance-based typo tolerance
+- Configurable maximum distance (default: 2)
+- Minimum similarity score threshold
 
-.. code-block:: text
-
-    /cart - Show current cart status
-    /verbose - Toggle detailed processing information
-
-Documentation Structure
-----------------------
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
-   quick_reference
-   implementation_status
-   chatbot_capabilities
-   deployment_guide
-   validation_guide
-   analysis_and_improvements
-   improvements_summary
-   documentation_audit_summary
-
-Core Capabilities (Implemented)
------------------------------
-
-Product Management
-~~~~~~~~~~~~~~~~~
-
-* **Product Information**: Detailed product descriptions, ingredients, nutritional info
-* **Product Search**: Flexible search with filters, categories, and price ranges
-* **Product Comparison**: Side-by-side comparison of products, prices, and features
-* **Stock Inquiries**: Real-time stock availability
-
-Cart Operations
-~~~~~~~~~~~~~~
-
-* **Add to Cart**: Smart product selection with variant and quantity specification
-* **Cart Management**: View, update quantities, remove items, clear cart
-* **Cart Calculations**: Automatic price calculations, discounts, and tax
-
-Customer Support
-~~~~~~~~~~~~~~~
-
-* **General Queries**: Help with policies, delivery, returns, and account issues
-* **Clarification Handling**: Intelligent follow-up questions for incomplete requests
-* **Context Maintenance**: Remember user preferences and conversation history
-
-Technical Architecture
----------------------
-
-.. code-block:: text
-
-    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-    │   User Input    │───▶│  Intent Engine  │───▶│  Response Gen   │
-    └─────────────────┘    └─────────────────┘    └─────────────────┘
-           │                       │                       │
-           ▼                       ▼                       ▼
-    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-    │  Multi-Intent   │    │  Entity Extract │    │  Context Mgmt   │
-    │   Detection     │    │   & Validation  │    │   & Memory      │
-    └─────────────────┘    └─────────────────┘    └─────────────────┘
-           │                       │                       │
-           ▼                       ▼                       ▼
-    ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-    │  Missing Info   │    │  Fuzzy Search   │    │   Analytics     │
-    │   Detection     │    │   Engine        │    │   & Monitoring  │
-    └─────────────────┘    └─────────────────┘    └─────────────────┘
-
-Performance Metrics
-------------------
-
-* **Response Time**: < 2 seconds for most queries
-* **Intent Accuracy**: > 90% for common e-commerce intents
-* **Entity Recognition**: > 85% accuracy for product names and quantities
-* **Multi-Intent Success**: > 80% for complex multi-request messages
-* **Clarification Success**: > 85% for incomplete queries
-
-Supported Intents (Implemented)
------------------------------
-
-.. list-table:: Supported Intent Types
-   :header-rows: 1
-   :widths: 30 40 30
-
-   * - Intent Type
-     - Description
-     - Example
-   * - product_info
-     - Get detailed product information
-     - "Tell me about Amul ghee"
-   * - product_search
-     - Search for products with filters
-     - "Find organic products under ₹500"
-   * - product_comparison
-     - Compare multiple products
-     - "Compare Amul and Patanjali ghee"
-   * - add_to_cart
-     - Add products to shopping cart
-     - "Add 2 liters of milk to cart"
-   * - view_cart
-     - View cart contents and total
-     - "Show my cart"
-   * - remove_from_cart
-     - Remove items from cart
-     - "Remove milk from cart"
-   * - price_inquiry
-     - Check product prices
-     - "What's the price of ghee?"
-   * - stock_inquiry
-     - Check product availability
-     - "Is milk in stock?"
-   * - order_history
-     - View past orders
-     - "Show my order history"
-   * - general_query
-     - General customer service
-     - "What's your return policy?"
-   * - greeting
-     - Handle greetings
-     - "Hello", "Hi"
-   * - goodbye
-     - Handle farewells
-     - "Goodbye", "Bye"
-
-Planned Features (Not Yet Implemented)
--------------------------------------
-
-Order Processing
-~~~~~~~~~~~~~~~
-
-* **Order Placement**: Streamlined checkout with delivery and payment options
-* **Order Tracking**: Real-time order status and delivery tracking
-* **Payment Processing**: Integration with payment gateways
-
-Advanced Features
+Phonetic Matching
 ~~~~~~~~~~~~~~~~
 
-* **Voice Input**: Voice processing capabilities
-* **Image Recognition**: Product image analysis
-* **Multi-language Support**: Support for multiple languages
-* **Real-time Inventory**: Live stock updates
-* **Long-term Memory**: Cross-session conversation memory
+- Sound-based matching for similar-sounding words
+- Useful for brand names and product names
+- Configurable similarity threshold
+
+Partial Matching
+~~~~~~~~~~~~~~~
+
+- Substring matching within product names/descriptions
+- Configurable minimum score threshold
+- Case-insensitive matching
+
+📊 Analytics Features
+--------------------
+
+User Interaction Tracking
+~~~~~~~~~~~~~~~~~~~~~~~
+
+- Intent detection tracking
+- Response generation metrics
+- Error tracking and reporting
+- Performance monitoring
+
+Performance Metrics
+~~~~~~~~~~~~~~~~~~
+
+- Processing time measurement
+- Token usage tracking
+- Cost calculation
+- Success rate monitoring
+
+🗄️ Database Schema
+------------------
+
+Core Tables
+~~~~~~~~~~
+
+- `products` - Product catalog
+- `categories` - Product categories
+- `users` - User information
+- `orders` - Order history
+- `cart_items` - Shopping cart
+- `sessions` - User sessions
+- `analytics_events` - Analytics data
+
+Sample Data
+~~~~~~~~~~
+
+The system includes comprehensive sample data with:
+- 8 products across 5 categories
+- Multiple variants per product
+- Nutritional information
+- Product tags and ingredients
+- Pricing and stock information
+
+🧪 Testing
+----------
+
+Test Commands
+~~~~~~~~~~~
+
+.. code-block:: bash
+
+   # Run basic tests
+   python test_chatbot.py
+
+   # Run enhanced system tests
+   python test_enhanced_system.py
+
+   # Run search tests
+   python test_wildcards_and_fuzzy.py
+
+   # Run command tests
+   python test_commands_only.py
+
+📚 Documentation
+---------------
+
+- **Quick Reference**: Start with the quick reference for immediate usage
+- **Implementation Status**: Check implementation status for feature availability
+- **Deployment Guide**: Comprehensive deployment instructions
+- **API Reference**: Complete API documentation
+- **Technical Architecture**: System design and component overview
 
 Getting Help
 -----------
 
-* **Documentation**: This comprehensive guide covers all implemented features
+* **Quick Reference**: Start with the quick reference for immediate usage
+* **Implementation Status**: Check implementation status for feature availability
 * **Examples**: See `tests/data/test_conversations.json` for usage examples
 * **Validation**: Run `python run_validation.py` to test the system
 * **Issues**: Check the analysis documents for known limitations
@@ -280,4 +627,11 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 Support
 -------
 
-For technical support or questions about the chatbot capabilities, please refer to the detailed documentation in the sections below. 
+For technical support or questions about the chatbot capabilities, please refer to the detailed documentation in the sections below.
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search` 
