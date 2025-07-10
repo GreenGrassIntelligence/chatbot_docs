@@ -1,0 +1,695 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Environment Configuration Guide &mdash; E-commerce Chatbot 2.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=c30eb0f8" />
+
+  
+    <link rel="canonical" href="https://greengrassintelligence.github.io/chatbot_docs/installation/environment_configuration.html" />
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=51b770b3"></script>
+      <script src="../_static/doctools.js?v=888ff710"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within E-commerce Chatbot 2.0.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Getting Started Guide" href="../usage/getting_started.html" />
+    <link rel="prev" title="Application Setup Guide" href="application_setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #2980B9" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            E-commerce Chatbot
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="documentation_setup.html">Documentation Setup Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="documentation_setup.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_setup.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_setup.html#installation-steps">Installation Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_setup.html#configuration-files">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_setup.html#github-pages-setup">GitHub Pages Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_setup.html#build-process">Build Process</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_setup.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation_setup.html#maintenance">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="application_setup.html">Application Setup Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="application_setup.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_setup.html#prerequisites">Prerequisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_setup.html#database-setup">Database Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_setup.html#rag-system-setup">RAG System Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_setup.html#environment-configuration">Environment Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_setup.html#python-dependencies">Python Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_setup.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_setup.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_setup.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Environment Configuration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#environment-variables-reference">Environment Variables Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-file-structure">Configuration File Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-loading-order">Configuration Loading Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-validation">Configuration Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#environment-specific-configurations">Environment-Specific Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration-management-best-practices">Configuration Management Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#troubleshooting-configuration-issues">Troubleshooting Configuration Issues</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../usage/getting_started.html">Getting Started Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../usage/getting_started.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/getting_started.html#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/getting_started.html#first-steps">First Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/getting_started.html#product-search">Product Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/getting_started.html#cart-management">Cart Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/getting_started.html#product-information">Product Information</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/getting_started.html#order-management">Order Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/getting_started.html#advanced-features">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/getting_started.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/getting_started.html#best-practices">Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/getting_started.html#next-steps">Next Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/getting_started.html#need-help">Need Help?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/user_guide.html">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../usage/user_guide.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/user_guide.html#basic-interaction">Basic Interaction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/user_guide.html#product-search">Product Search</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/user_guide.html#cart-management">Cart Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/user_guide.html#order-management">Order Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/user_guide.html#advanced-features">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/user_guide.html#commands-reference">Commands Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/user_guide.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/user_guide.html#need-more-help">Need More Help?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../usage/troubleshooting.html">Troubleshooting Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../usage/troubleshooting.html#quick-diagnosis">Quick Diagnosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/troubleshooting.html#common-issues-and-solutions">Common Issues and Solutions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/troubleshooting.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/troubleshooting.html#debugging-steps">Debugging Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/troubleshooting.html#prevention-tips">Prevention Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/troubleshooting.html#getting-help">Getting Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../usage/troubleshooting.html#emergency-procedures">Emergency Procedures</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../development/architecture_overview.html">Architecture Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../development/architecture_overview.html#system-architecture-diagram">System Architecture Diagram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/architecture_overview.html#architecture-principles">Architecture Principles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/architecture_overview.html#system-characteristics">System Characteristics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/architecture_overview.html#core-components-overview">Core Components Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/architecture_overview.html#data-flow">Data Flow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/architecture_overview.html#technology-stack">Technology Stack</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/nlu_system.html">Natural Language Understanding (NLU) System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../development/nlu_system.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/nlu_system.html#intent-detection">Intent Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/nlu_system.html#entity-extraction">Entity Extraction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/nlu_system.html#llm-integration">LLM Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/nlu_system.html#context-awareness">Context Awareness</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/nlu_system.html#confidence-scoring">Confidence Scoring</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/nlu_system.html#clarification-detection">Clarification Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/nlu_system.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/nlu_system.html#error-handling">Error Handling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/nlu_system.html#integration-points">Integration Points</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/configuration_guide.html">Configuration Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../development/configuration_guide.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/configuration_guide.html#unified-configuration-system">Unified Configuration System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/configuration_guide.html#feature-toggles">Feature Toggles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/configuration_guide.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/configuration_guide.html#yaml-configuration">YAML Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/configuration_guide.html#configuration-loading-order">Configuration Loading Order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/configuration_guide.html#configuration-validation">Configuration Validation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/configuration_guide.html#environment-specific-configurations">Environment-Specific Configurations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/configuration_guide.html#runtime-configuration-updates">Runtime Configuration Updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/configuration_guide.html#configuration-best-practices">Configuration Best Practices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/configuration_guide.html#troubleshooting-configuration-issues">Troubleshooting Configuration Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/database_schema.html">Database Schema</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../development/database_schema.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/database_schema.html#core-tables">Core Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/database_schema.html#data-models">Data Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/database_schema.html#database-relationships">Database Relationships</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/database_schema.html#indexes">Indexes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/database_schema.html#database-manager">Database Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/database_schema.html#data-access-layer">Data Access Layer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/database_schema.html#migration-system">Migration System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/database_schema.html#performance-optimization">Performance Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../development/testing_guide.html">Testing Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../development/testing_guide.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/testing_guide.html#unit-testing">Unit Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/testing_guide.html#integration-testing">Integration Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/testing_guide.html#performance-testing">Performance Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/testing_guide.html#validation-testing">Validation Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/testing_guide.html#test-data-management">Test Data Management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/testing_guide.html#test-execution">Test Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../development/testing_guide.html#test-best-practices">Test Best Practices</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Maintenance</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/monitoring_and_logging.html">Monitoring and Logging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#logging-configuration">Logging Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#log-format">Log Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#logging-components">Logging Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#core-logging-components">Core Logging Components</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#analytics-logging">Analytics Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#monitoring-metrics">Monitoring Metrics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#key-performance-indicators-kpis">Key Performance Indicators (KPIs)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#real-time-monitoring">Real-time Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#alerting-configuration">Alerting Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#critical-alerts">Critical Alerts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#warning-alerts">Warning Alerts</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#log-analysis-tools">Log Analysis Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#built-in-analysis">Built-in Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#external-integration">External Integration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#log-retention-policy">Log Retention Policy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#development-environment">Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#production-environment">Production Environment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#log-rotation">Log Rotation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#best-practices">Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#logging-guidelines">Logging Guidelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#monitoring-guidelines">Monitoring Guidelines</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#troubleshooting">Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#common-logging-issues">Common Logging Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#monitoring-issues">Monitoring Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#configuration-examples">Configuration Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#id1">Logging Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#monitoring-configuration">Monitoring Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#integration-examples">Integration Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#elk-stack-integration">ELK Stack Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/monitoring_and_logging.html#prometheus-integration">Prometheus Integration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/analysis_and_improvements.html">Analysis and Improvements</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#performance-analysis">Performance Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#response-time-analysis">Response Time Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#accuracy-analysis">Accuracy Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#resource-utilization">Resource Utilization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#user-behavior-analysis">User Behavior Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#interaction-patterns">Interaction Patterns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#user-segmentation">User Segmentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#system-health-analysis">System Health Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#error-analysis">Error Analysis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#availability-monitoring">Availability Monitoring</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#improvement-strategies">Improvement Strategies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#performance-optimization">Performance Optimization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#accuracy-improvements">Accuracy Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#user-experience-enhancements">User Experience Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#continuous-improvement-process">Continuous Improvement Process</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#data-collection">Data Collection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#analysis-framework">Analysis Framework</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#implementation-process">Implementation Process</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#feedback-loop">Feedback Loop</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#tools-and-technologies">Tools and Technologies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#analytics-tools">Analytics Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#testing-tools">Testing Tools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#monitoring-tools">Monitoring Tools</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#best-practices">Best Practices</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#data-driven-decisions">Data-Driven Decisions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#incremental-improvements">Incremental Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#user-centric-approach">User-Centric Approach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#continuous-learning">Continuous Learning</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#metrics-and-kpis">Metrics and KPIs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#key-performance-indicators">Key Performance Indicators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#success-metrics">Success Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#reporting-and-communication">Reporting and Communication</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#regular-reports">Regular Reports</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#stakeholder-communication">Stakeholder Communication</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/analysis_and_improvements.html#documentation-updates">Documentation Updates</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../maintenance/improvements_summary.html">Improvements Summary</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/improvements_summary.html#recent-improvements">Recent Improvements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#performance-enhancements">Performance Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#accuracy-improvements">Accuracy Improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#user-experience-enhancements">User Experience Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#system-reliability">System Reliability</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/improvements_summary.html#maintenance-activities">Maintenance Activities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#regular-maintenance">Regular Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/improvements_summary.html#planned-improvements">Planned Improvements</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#short-term-next-3-months">Short-term (Next 3 Months)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#medium-term-3-6-months">Medium-term (3-6 Months)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#long-term-6-months">Long-term (6+ Months)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/improvements_summary.html#metrics-and-results">Metrics and Results</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#performance-metrics">Performance Metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#user-satisfaction">User Satisfaction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/improvements_summary.html#lessons-learned">Lessons Learned</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#success-factors">Success Factors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#challenges-overcome">Challenges Overcome</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#best-practices-established">Best Practices Established</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/improvements_summary.html#future-directions">Future Directions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#technology-trends">Technology Trends</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#user-experience-trends">User Experience Trends</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#business-alignment">Business Alignment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../maintenance/improvements_summary.html#continuous-improvement">Continuous Improvement</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#ongoing-processes">Ongoing Processes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../maintenance/improvements_summary.html#success-metrics">Success Metrics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #2980B9" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">E-commerce Chatbot</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Environment Configuration Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/installation/environment_configuration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="environment-configuration-guide">
+<h1>Environment Configuration Guide<a class="headerlink" href="#environment-configuration-guide" title="Link to this heading">¶</a></h1>
+<p>This guide provides detailed information about all environment variables and configuration options for the e-commerce chatbot.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
+<p>The application uses a unified configuration system that supports multiple configuration sources:
+- Environment variables
+- YAML configuration files
+- Feature toggles
+- Database and service configurations</p>
+</section>
+<section id="environment-variables-reference">
+<h2>Environment Variables Reference<a class="headerlink" href="#environment-variables-reference" title="Link to this heading">¶</a></h2>
+<p><strong>Database Configuration</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># PostgreSQL Database URL</span>
+<span class="nv">DATABASE_URL</span><span class="o">=</span>postgresql://username:password@host:port/database
+
+<span class="c1"># Database connection pool settings</span>
+<span class="nv">DB_POOL_SIZE</span><span class="o">=</span><span class="m">10</span>
+<span class="nv">DB_MAX_OVERFLOW</span><span class="o">=</span><span class="m">20</span>
+<span class="nv">DB_POOL_TIMEOUT</span><span class="o">=</span><span class="m">30</span>
+</pre></div>
+</div>
+<p><strong>Redis Configuration</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Redis connection URL</span>
+<span class="nv">REDIS_URL</span><span class="o">=</span>redis://localhost:6379
+
+<span class="c1"># Redis database number</span>
+<span class="nv">REDIS_DB</span><span class="o">=</span><span class="m">0</span>
+
+<span class="c1"># Redis connection timeout</span>
+<span class="nv">REDIS_TIMEOUT</span><span class="o">=</span><span class="m">5</span>
+</pre></div>
+</div>
+<p><strong>LLM Configuration</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># OpenAI API Key</span>
+<span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-your-api-key-here
+
+<span class="c1"># LLM Model selection</span>
+<span class="nv">LLM_MODEL</span><span class="o">=</span>gpt-3.5-turbo
+
+<span class="c1"># LLM Provider (openai, anthropic, etc.)</span>
+<span class="nv">LLM_PROVIDER</span><span class="o">=</span>openai
+
+<span class="c1"># Maximum tokens for responses</span>
+<span class="nv">LLM_MAX_TOKENS</span><span class="o">=</span><span class="m">1000</span>
+
+<span class="c1"># Temperature for response generation</span>
+<span class="nv">LLM_TEMPERATURE</span><span class="o">=</span><span class="m">0</span>.7
+</pre></div>
+</div>
+<p><strong>Feature Toggles</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Search Features</span>
+<span class="nv">ENABLE_FUZZY_MATCHING</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">ENABLE_PHONETIC_MATCHING</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">ENABLE_PARTIAL_MATCHING</span><span class="o">=</span><span class="nb">true</span>
+
+<span class="c1"># System Features</span>
+<span class="nv">ENABLE_ANALYTICS</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">ENABLE_COMMANDS</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">ENABLE_SEARCH</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">ENABLE_SESSION_MANAGEMENT</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">ENABLE_CACHING</span><span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+<p><strong>Search Configuration</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fuzzy matching threshold</span>
+<span class="nv">FUZZY_THRESHOLD</span><span class="o">=</span><span class="m">0</span>.8
+
+<span class="c1"># Phonetic matching algorithm</span>
+<span class="nv">PHONETIC_ALGORITHM</span><span class="o">=</span>metaphone
+
+<span class="c1"># Partial matching minimum length</span>
+<span class="nv">PARTIAL_MIN_LENGTH</span><span class="o">=</span><span class="m">3</span>
+</pre></div>
+</div>
+<p><strong>Analytics Configuration</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Analytics tracking enabled</span>
+<span class="nv">ANALYTICS_ENABLED</span><span class="o">=</span><span class="nb">true</span>
+
+<span class="c1"># Analytics database URL (if separate)</span>
+<span class="nv">ANALYTICS_DB_URL</span><span class="o">=</span>postgresql://analytics_user:password@host:port/analytics_db
+
+<span class="c1"># Cost tracking enabled</span>
+<span class="nv">COST_TRACKING_ENABLED</span><span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+<p><strong>Session Configuration</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Session timeout in seconds</span>
+<span class="nv">SESSION_TIMEOUT</span><span class="o">=</span><span class="m">3600</span>
+
+<span class="c1"># Session cleanup interval</span>
+<span class="nv">SESSION_CLEANUP_INTERVAL</span><span class="o">=</span><span class="m">300</span>
+
+<span class="c1"># Maximum sessions per user</span>
+<span class="nv">MAX_SESSIONS_PER_USER</span><span class="o">=</span><span class="m">5</span>
+</pre></div>
+</div>
+<p><strong>Caching Configuration</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cache TTL in seconds</span>
+<span class="nv">CACHE_TTL</span><span class="o">=</span><span class="m">300</span>
+
+<span class="c1"># Cache max size</span>
+<span class="nv">CACHE_MAX_SIZE</span><span class="o">=</span><span class="m">1000</span>
+
+<span class="c1"># Cache eviction policy</span>
+<span class="nv">CACHE_EVICTION_POLICY</span><span class="o">=</span>lru
+</pre></div>
+</div>
+<p><strong>Logging Configuration</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Log level</span>
+<span class="nv">LOG_LEVEL</span><span class="o">=</span>INFO
+
+<span class="c1"># Log format</span>
+<span class="nv">LOG_FORMAT</span><span class="o">=</span>json
+
+<span class="c1"># Log file path</span>
+<span class="nv">LOG_FILE</span><span class="o">=</span>logs/chatbot.log
+</pre></div>
+</div>
+<p><strong>Security Configuration</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Secret key for sessions</span>
+<span class="nv">SECRET_KEY</span><span class="o">=</span>your-secret-key-here
+
+<span class="c1"># CORS origins</span>
+<span class="nv">CORS_ORIGINS</span><span class="o">=</span>http://localhost:3000,https://yourdomain.com
+
+<span class="c1"># Rate limiting</span>
+<span class="nv">RATE_LIMIT_REQUESTS</span><span class="o">=</span><span class="m">100</span>
+<span class="nv">RATE_LIMIT_WINDOW</span><span class="o">=</span><span class="m">3600</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-file-structure">
+<h2>Configuration File Structure<a class="headerlink" href="#configuration-file-structure" title="Link to this heading">¶</a></h2>
+<p><strong>YAML Configuration Example</strong></p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1"># Database Configuration</span>
+<span class="nt">database</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DATABASE_URL}</span>
+<span class="w">  </span><span class="nt">pool_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DB_POOL_SIZE:10}</span>
+<span class="w">  </span><span class="nt">max_overflow</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DB_MAX_OVERFLOW:20}</span>
+<span class="w">  </span><span class="nt">pool_timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${DB_POOL_TIMEOUT:30}</span>
+
+<span class="c1"># Redis Configuration</span>
+<span class="nt">redis</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${REDIS_URL:redis://localhost:6379}</span>
+<span class="w">  </span><span class="nt">db</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${REDIS_DB:0}</span>
+<span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${REDIS_TIMEOUT:5}</span>
+
+<span class="c1"># LLM Configuration</span>
+<span class="nt">llm</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">provider</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${LLM_PROVIDER:openai}</span>
+<span class="w">  </span><span class="nt">model</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${LLM_MODEL:gpt-3.5-turbo}</span>
+<span class="w">  </span><span class="nt">api_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OPENAI_API_KEY}</span>
+<span class="w">  </span><span class="nt">max_tokens</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${LLM_MAX_TOKENS:1000}</span>
+<span class="w">  </span><span class="nt">temperature</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${LLM_TEMPERATURE:0.7}</span>
+
+<span class="c1"># Feature Configuration</span>
+<span class="nt">features</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">fuzzy_matching</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ENABLE_FUZZY_MATCHING:true}</span>
+<span class="w">  </span><span class="nt">phonetic_matching</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ENABLE_PHONETIC_MATCHING:true}</span>
+<span class="w">  </span><span class="nt">partial_matching</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ENABLE_PARTIAL_MATCHING:true}</span>
+<span class="w">  </span><span class="nt">analytics</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ENABLE_ANALYTICS:true}</span>
+<span class="w">  </span><span class="nt">commands</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ENABLE_COMMANDS:true}</span>
+<span class="w">  </span><span class="nt">search</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ENABLE_SEARCH:true}</span>
+<span class="w">  </span><span class="nt">session_management</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ENABLE_SESSION_MANAGEMENT:true}</span>
+<span class="w">  </span><span class="nt">caching</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ENABLE_CACHING:true}</span>
+
+<span class="c1"># Search Configuration</span>
+<span class="nt">search</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">fuzzy_threshold</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${FUZZY_THRESHOLD:0.8}</span>
+<span class="w">  </span><span class="nt">phonetic_algorithm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${PHONETIC_ALGORITHM:metaphone}</span>
+<span class="w">  </span><span class="nt">partial_min_length</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${PARTIAL_MIN_LENGTH:3}</span>
+
+<span class="c1"># Analytics Configuration</span>
+<span class="nt">analytics</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ANALYTICS_ENABLED:true}</span>
+<span class="w">  </span><span class="nt">db_url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${ANALYTICS_DB_URL}</span>
+<span class="w">  </span><span class="nt">cost_tracking</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${COST_TRACKING_ENABLED:true}</span>
+
+<span class="c1"># Session Configuration</span>
+<span class="nt">session</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${SESSION_TIMEOUT:3600}</span>
+<span class="w">  </span><span class="nt">cleanup_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${SESSION_CLEANUP_INTERVAL:300}</span>
+<span class="w">  </span><span class="nt">max_per_user</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${MAX_SESSIONS_PER_USER:5}</span>
+
+<span class="c1"># Caching Configuration</span>
+<span class="nt">cache</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">ttl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${CACHE_TTL:300}</span>
+<span class="w">  </span><span class="nt">max_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${CACHE_MAX_SIZE:1000}</span>
+<span class="w">  </span><span class="nt">eviction_policy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${CACHE_EVICTION_POLICY:lru}</span>
+
+<span class="c1"># Logging Configuration</span>
+<span class="nt">logging</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">level</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${LOG_LEVEL:INFO}</span>
+<span class="w">  </span><span class="nt">format</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${LOG_FORMAT:json}</span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${LOG_FILE:logs/chatbot.log}</span>
+
+<span class="c1"># Security Configuration</span>
+<span class="nt">security</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">secret_key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${SECRET_KEY}</span>
+<span class="w">  </span><span class="nt">cors_origins</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${CORS_ORIGINS}</span>
+<span class="w">  </span><span class="nt">rate_limit_requests</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${RATE_LIMIT_REQUESTS:100}</span>
+<span class="w">  </span><span class="nt">rate_limit_window</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${RATE_LIMIT_WINDOW:3600}</span>
+</pre></div>
+</div>
+</section>
+<section id="configuration-loading-order">
+<h2>Configuration Loading Order<a class="headerlink" href="#configuration-loading-order" title="Link to this heading">¶</a></h2>
+<p>The application loads configuration in the following order:</p>
+<ol class="arabic simple">
+<li><p><strong>Default values</strong> (hardcoded in application)</p></li>
+<li><p><strong>Environment variables</strong> (override defaults)</p></li>
+<li><p><strong>YAML configuration file</strong> (override environment variables)</p></li>
+<li><p><strong>Runtime configuration</strong> (can be changed during execution)</p></li>
+</ol>
+</section>
+<section id="configuration-validation">
+<h2>Configuration Validation<a class="headerlink" href="#configuration-validation" title="Link to this heading">¶</a></h2>
+<p>The unified configuration system validates all settings:</p>
+<ul class="simple">
+<li><p><strong>Type checking</strong>: Ensures correct data types</p></li>
+<li><p><strong>Range validation</strong>: Validates numeric ranges</p></li>
+<li><p><strong>Required fields</strong>: Checks for mandatory settings</p></li>
+<li><p><strong>Dependency validation</strong>: Ensures related settings are consistent</p></li>
+</ul>
+<p>Example Validation Errors:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ConfigurationError: Invalid fuzzy_threshold value: 1.5 (must be between 0.0 and 1.0)
+ConfigurationError: Missing required setting: OPENAI_API_KEY
+ConfigurationError: Invalid database URL format
+</pre></div>
+</div>
+</section>
+<section id="environment-specific-configurations">
+<h2>Environment-Specific Configurations<a class="headerlink" href="#environment-specific-configurations" title="Link to this heading">¶</a></h2>
+<p><strong>Development Environment</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Development settings</span>
+<span class="nv">LOG_LEVEL</span><span class="o">=</span>DEBUG
+<span class="nv">ENABLE_ANALYTICS</span><span class="o">=</span><span class="nb">false</span>
+<span class="nv">CACHE_TTL</span><span class="o">=</span><span class="m">60</span>
+<span class="nv">SESSION_TIMEOUT</span><span class="o">=</span><span class="m">1800</span>
+</pre></div>
+</div>
+<p><strong>Production Environment</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Production settings</span>
+<span class="nv">LOG_LEVEL</span><span class="o">=</span>WARNING
+<span class="nv">ENABLE_ANALYTICS</span><span class="o">=</span><span class="nb">true</span>
+<span class="nv">CACHE_TTL</span><span class="o">=</span><span class="m">3600</span>
+<span class="nv">SESSION_TIMEOUT</span><span class="o">=</span><span class="m">7200</span>
+<span class="nv">RATE_LIMIT_REQUESTS</span><span class="o">=</span><span class="m">50</span>
+</pre></div>
+</div>
+<p><strong>Testing Environment</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Testing settings</span>
+<span class="nv">DATABASE_URL</span><span class="o">=</span>postgresql://test_user:test_pass@localhost:5432/test_db
+<span class="nv">REDIS_URL</span><span class="o">=</span>redis://localhost:6379/1
+<span class="nv">ENABLE_ANALYTICS</span><span class="o">=</span><span class="nb">false</span>
+<span class="nv">LOG_LEVEL</span><span class="o">=</span>ERROR
+</pre></div>
+</div>
+</section>
+<section id="configuration-management-best-practices">
+<h2>Configuration Management Best Practices<a class="headerlink" href="#configuration-management-best-practices" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Use environment variables for secrets</strong></p></li>
+<li><p><strong>Keep configuration files in version control</strong></p></li>
+<li><p><strong>Use different configuration files for different environments</strong></p></li>
+<li><p><strong>Validate configuration on startup</strong></p></li>
+<li><p><strong>Document all configuration options</strong></p></li>
+<li><p><strong>Use meaningful default values</strong></p></li>
+<li><p><strong>Implement configuration hot-reloading where appropriate</strong></p></li>
+</ol>
+</section>
+<section id="troubleshooting-configuration-issues">
+<h2>Troubleshooting Configuration Issues<a class="headerlink" href="#troubleshooting-configuration-issues" title="Link to this heading">¶</a></h2>
+<p><strong>Common Issues:</strong></p>
+<ul class="simple">
+<li><p><strong>Missing environment variables</strong>: Check <cite>.env</cite> file and environment</p></li>
+<li><p><strong>Invalid configuration values</strong>: Review validation error messages</p></li>
+<li><p><strong>Configuration file not found</strong>: Verify file path and permissions</p></li>
+<li><p><strong>Type conversion errors</strong>: Ensure correct data types in configuration</p></li>
+</ul>
+<p><strong>Debugging Commands:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Print current configuration</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from src.config.unified_config import get_config; print(get_config())&quot;</span>
+
+<span class="c1"># Validate configuration</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from src.config.unified_config import validate_config; validate_config()&quot;</span>
+
+<span class="c1"># Test configuration loading</span>
+python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from src.config.config_manager import ConfigManager; cm = ConfigManager(); print(cm.get_all_settings())&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="application_setup.html" class="btn btn-neutral float-left" title="Application Setup Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../usage/getting_started.html" class="btn btn-neutral float-right" title="Getting Started Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, E-commerce Chatbot Team.
+      <span class="lastupdated">Last updated on July 10, 2025.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
