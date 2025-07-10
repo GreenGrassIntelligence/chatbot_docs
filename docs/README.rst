@@ -1,12 +1,12 @@
-E-commerce Chatbot Documentation
-================================
+Chatbot Core Documentation
+==========================
 
-This repository contains the complete documentation for the E-commerce Chatbot project, hosted on GitHub Pages.
+This repository contains the complete documentation for the Chatbot Core project, organized for easy navigation and maintenance.
 
 📖 Live Documentation
 --------------------
 
-Visit the live documentation at: `https://greengrassintelligence.github.io/chatbot_docs/ <https://greengrassintelligence.github.io/chatbot_docs/>`_
+Visit the live documentation at: `https://greengrassintelligence.github.io/chatbot_core/ <https://greengrassintelligence.github.io/chatbot_core/>`_
 
 🚀 Quick Start
 --------------
@@ -14,7 +14,7 @@ Visit the live documentation at: `https://greengrassintelligence.github.io/chatb
 Prerequisites
 ~~~~~~~~~~~~
 
-- Python 3.7+
+- Python 3.8+
 - pip
 - Git
 
@@ -24,8 +24,8 @@ Installation
 .. code-block:: bash
 
    # Clone this repository
-   git clone https://github.com/GreenGrassIntelligence/chatbot_docs.git
-   cd chatbot_docs
+   git clone https://github.com/GreenGrassIntelligence/chatbot_core.git
+   cd chatbot_core
 
    # Install dependencies
    pip install -r requirements.txt
@@ -47,12 +47,30 @@ Deployment
 📚 Documentation Structure
 -------------------------
 
-- **API Reference**: Complete API documentation with examples
-- **Technical Architecture**: System design and component overview
-- **Deployment Guide**: Step-by-step deployment instructions
-- **Quick Reference**: Common commands and configurations
-- **Validation Guide**: Testing and validation procedures
-- **Implementation Status**: Current development status
+The documentation is organized into four main sections:
+
+**Installation**
+- Documentation setup and configuration
+- Application installation and setup
+- Environment configuration
+
+**Usage**
+- Getting started guide
+- Comprehensive user guide
+- Troubleshooting and support
+
+**Development**
+- Architecture overview
+- NLU system details
+- Configuration guide
+- Database schema
+- Testing guide
+- Performance optimization
+
+**Maintenance**
+- Monitoring and logging
+- Analysis and improvements
+- Improvements summary
 
 🔧 Development
 -------------
@@ -100,8 +118,7 @@ Local Development
 🔗 Related Repositories
 ----------------------
 
-- **Main Project**: `E-commerce Chatbot <https://github.com/yourusername/ecommerce-chatbot>`_
-- **API Backend**: `Chatbot API <https://github.com/yourusername/chatbot-api>`_
+- **Main Project**: `Chatbot Core <https://github.com/GreenGrassIntelligence/chatbot_core>`_
 
 📞 Support
 ---------
@@ -114,6 +131,27 @@ Local Development
 ----------
 
 This documentation is licensed under the same license as the main project.
+
+System Overview
+--------------
+
+The Chatbot Core system is a comprehensive conversational AI platform designed for e-commerce applications. It features:
+
+- **Advanced NLP**: Multi-intent processing and intelligent entity recognition
+- **Flexible Search**: Fuzzy matching, phonetic matching, and wildcard support
+- **Context Management**: Session-based conversation memory and state tracking
+- **Analytics**: Comprehensive performance monitoring and user behavior analysis
+- **Modular Architecture**: Extensible design with plugin support
+
+Key Features
+-----------
+
+- **Multi-Intent Processing**: Handle multiple requests in single messages
+- **Intelligent Clarification**: Automatic detection and resolution of missing information
+- **Advanced Search**: Fuzzy, phonetic, and partial matching capabilities
+- **Real-time Analytics**: Performance monitoring and user behavior tracking
+- **Comprehensive Testing**: Automated validation and performance benchmarking
+- **Extensive Documentation**: Complete guides for all user types
 
 Configuration System
 -------------------
@@ -131,8 +169,8 @@ Example Configuration
 .. code-block:: yaml
 
    app:
-     name: "E-commerce Chatbot"
-     version: "0.1.0"
+     name: "Chatbot Core"
+     version: "2.0.0"
      environment: "development"
      debug: true
 
@@ -168,7 +206,7 @@ You can override any configuration using environment variables:
    export APP_ENVIRONMENT=production
    export FEATURES_FUZZY_MATCHING_ENABLED=false
    export DATABASE_HOST=prod-db.example.com
-   export LLM_PROVIDER=openai
+   export LLM_PROVIDER=groq
    export LLM_API_KEY=your-api-key
 
 Feature Toggles
@@ -191,4 +229,4 @@ The system supports dynamic feature toggles:
 
 ---
 
-**Note**: Remember to update the URLs in ``conf.py`` and this README with your actual GitHub username and repository name! 
+**Note**: This documentation is automatically generated and deployed to GitHub Pages. For the latest updates, check the main repository. 

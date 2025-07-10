@@ -1,134 +1,80 @@
-E-commerce Chatbot Documentation
-===============================
+Welcome to Chatbot Core Documentation
+====================================
 
-Welcome to the comprehensive documentation for the **E-commerce Chatbot** - an intelligent conversational AI system designed for e-commerce platforms. This chatbot handles product inquiries, cart operations, and provides shopping assistance through natural language conversations.
+This documentation provides comprehensive information about the Chatbot Core system, including installation, usage, development, and maintenance guides.
 
-.. image:: https://img.shields.io/badge/Python-3.8+-blue.svg
-   :target: https://python.org
-   :alt: Python 3.8+
+.. toctree::
+   :maxdepth: 2
+   :caption: Installation
 
-.. image:: https://img.shields.io/badge/License-MIT-green.svg
-   :target: LICENSE
-   :alt: MIT License
+   installation/documentation_setup
+   installation/application_setup
+   installation/environment_configuration
 
-.. image:: https://img.shields.io/badge/Status-Development-orange.svg
-   :alt: Development
+.. toctree::
+   :maxdepth: 2
+   :caption: Usage
 
-.. image:: https://img.shields.io/badge/Version-2.0.0-blue.svg
-   :alt: Version 2.0.0
+   usage/getting_started
+   usage/user_guide
+   usage/troubleshooting
 
-What This Chatbot Can Do
------------------------
+.. toctree::
+   :maxdepth: 2
+   :caption: Development
 
-🎯 **Multi-Intent Processing**
-   Handle multiple requests in a single message:
-   
-   *"I want to buy ghee and check milk prices"* → Processes both purchase and price inquiry
+   development/architecture_overview
+   development/nlu_system
+   development/configuration_guide
+   development/database_schema
+   development/testing_guide
+   development/performance_optimization
 
-🤖 **Intelligent Clarification**
-   Automatically detect missing information and ask for clarification:
-   
-   *"I want to buy ghee"* → *"Which brand? Amul, Patanjali, or Mother Dairy?"*
+.. toctree::
+   :maxdepth: 2
+   :caption: Maintenance
 
-🛒 **E-commerce Operations**
-   * Product information and search
-   * Cart management (add, remove, update)
-   * Price and stock inquiries
-   * Product comparisons
-
-🧠 **Context-Aware Conversations**
-   Remember user preferences and maintain conversation context across interactions
-
-📊 **Analytics and Monitoring**
-   Track performance, costs, and user interactions
+   maintenance/monitoring_and_logging
+   maintenance/analysis_and_improvements
+   maintenance/improvements_summary
 
 Quick Start
+----------
+
+For new users, start with the :doc:`installation/application_setup` guide to get the system running quickly.
+
+For developers, begin with the :doc:`development/architecture_overview` to understand the system design.
+
+For system administrators, review the :doc:`maintenance/monitoring_and_logging` guide for operational procedures.
+
+System Overview
+--------------
+
+The Chatbot Core system is a comprehensive conversational AI platform designed for e-commerce applications. It features:
+
+- **Advanced NLP**: Multi-intent processing and intelligent entity recognition
+- **Flexible Search**: Fuzzy matching, phonetic matching, and wildcard support
+- **Context Management**: Session-based conversation memory and state tracking
+- **Analytics**: Comprehensive performance monitoring and user behavior analysis
+- **Modular Architecture**: Extensible design with plugin support
+
+Key Features
 -----------
 
-.. code-block:: bash
-
-    # Clone the repository
-    git clone <repository-url>
-    cd "Chatbot Core"
-    
-    # Install dependencies
-    pip install -r requirements.txt
-    
-    # Setup environment
-    cp env.example .env
-    # Edit .env with your API keys (GROQ_API_KEY required)
-    
-    # Run the chatbot
-    python src/main.py
-
-Documentation Structure
-----------------------
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Getting Started:
-
-   README
-   quick_reference
-   implementation_status
-   setup_docs_repo
-
-.. toctree::
-   :maxdepth: 2
-   :caption: User Guide:
-
-   chatbot_capabilities
-   deployment_guide
-   validation_guide
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Architecture & Development:
-
-   technical_architecture
-   analysis_and_improvements
-   improvements_summary
-   sphinx_setup_summary
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Reference:
-
-   documentation_audit_summary
-
-.. toctree::
-   :maxdepth: 1
-   :caption: API Reference:
-
-   api/index
+- **Multi-Intent Processing**: Handle multiple requests in single messages
+- **Intelligent Clarification**: Automatic detection and resolution of missing information
+- **Advanced Search**: Fuzzy, phonetic, and partial matching capabilities
+- **Real-time Analytics**: Performance monitoring and user behavior tracking
+- **Comprehensive Testing**: Automated validation and performance benchmarking
+- **Extensive Documentation**: Complete guides for all user types
 
 Getting Help
 -----------
 
-* **Quick Reference**: Start with the :doc:`quick_reference` for immediate usage
-* **Implementation Status**: Check :doc:`implementation_status` for feature availability
-* **Examples**: See `tests/data/test_conversations.json` for usage examples
-* **Validation**: Run `python run_validation.py` to test the system
-* **Issues**: Check the analysis documents for known limitations
-
-Contributing
------------
-
-1. Read the documentation thoroughly
-2. Run the validation suite: `python run_validation.py`
-3. Test your changes with the provided test data
-4. Update documentation for any new features
-5. Ensure all tests pass before submitting
-
-License
--------
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-Support
--------
-
-For technical support or questions about the chatbot capabilities, please refer to the detailed documentation in the sections below.
+- **User Issues**: Check the :doc:`usage/troubleshooting` guide
+- **Development Questions**: Review the :doc:`development/architecture_overview`
+- **System Problems**: Consult the :doc:`maintenance/monitoring_and_logging` guide
+- **Performance Issues**: See the :doc:`development/performance_optimization` guide
 
 Indices and tables
 ==================
